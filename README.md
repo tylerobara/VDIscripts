@@ -1,5 +1,7 @@
 # VDIscripts
 ## Scripts to setup VDI for AFNET using VMware Horizon Client
+**Please send issues and questions to: [my email](mailto:josephobara+VDI@gmail.com)**
+
 [Windows](https://github.com/tylerobara/VDIscripts/blob/master/README.md#windows-instructions)
 
 [macOS](https://github.com/tylerobara/VDIscripts/blob/master/README.md#macos-instructions)
