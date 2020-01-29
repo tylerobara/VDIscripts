@@ -1,5 +1,14 @@
 # VDIscripts
 ## Scripts to setup VDI for AFNET using VMware Horizon Client
+[Windows](https://github.com/tylerobara/VDIscripts/blob/master/README.md#windows-instructions)
+
+[macOS](https://github.com/tylerobara/VDIscripts/blob/master/README.md#macos-instructions)
+
+[Linux](https://github.com/tylerobara/VDIscripts/blob/master/README.md#linux-instructions)
+
+### Windows Instructions
+    *COMING SOON*
+
 ### macOS Instructions
 1) Connect USB CAC Reader & Insert CAC
 
@@ -21,7 +30,7 @@
 5) Select email certificate & enter PIN
 
 
-### Windows Instructions
+### Linux Instructions
     *COMING SOON*
 
 ### References
