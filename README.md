@@ -14,7 +14,7 @@
 
      `https://afrcdesktops.us.af.mil`
      
-         ![horizon Image](https://github.com/tylerobara/VDIscripts/raw/master/macOS_horizon.png)
+      ![horizon image](https://github.com/tylerobara/VDIscripts/raw/master/macOS_horizon.png)
 
 4) Select email certificate & enter PIN
 
