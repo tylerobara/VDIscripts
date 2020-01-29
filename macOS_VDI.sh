@@ -1,18 +1,32 @@
 #!/usr/bin/env bash
 
+#Set variables for VMware Horizon download url & temp directory for certs
+HORIZONURL="https://download3.vmware.com/software/view/viewclients/CART20FQ4/VMware-Horizon-Client-5.3.0-15225262.dmg"
 CERTSDIR=${HOME}/certsdir
-rm -rf $CERTSDIR
 
+#Deleting any cert remnants, downloading and installing certs, deleting un-needed certs directory
+rm -rf $CERTSDIR
 mkdir -pv $CERTSDIR
 cd $CERTSDIR
 wget -q https://militarycac.com/maccerts/AllCerts.p7b
-wget -q https://militarycac.com/maccerts/RootCert2.cer
-wget -q https://militarycac.com/maccerts/RootCert3.cer
-wget -q https://militarycac.com/maccerts/RootCert4.cer
-wget -q https://militarycac.com/maccerts/RootCert5.cer
-
-openssl pkcs7 -inform der -in AllCerts.p7b -out AllCerts.cer
+openssl pkcs7 -inform DER -outform PEM -in AllCerts.p7b -print_certs > AllCerts.cer
 sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain AllCerts.cer
+RootCerts=( RootCert2 RootCert3 RootCert4 RootCert5 )
+for cert in "${RootCerts[@]}"
+    do
+        :
+        wget -q https://militarycac.com/maccerts/$cert".cer"
+        sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain $cert".cer"
+done
+rm -rf $CERTSDIR
 
-ls -la $CERTSDIR
-#rm -rf $CERTSDIR
+#Downloading VMware Horizon, copying to $AppsDir, cleaning up and launching Horizon Client
+wget -O ~/Downloads/horizon.dmg $HORIZONURL
+hdiutil attach ~/Downloads/horizon.dmg
+sudo cp -R "/Volumes/VMware Horizon Client/VMware Horizon Client.app" /Applications
+diskutil list | grep VMware | awk '{print $(NF)}' | sed 's/..$//'
+horizon_disk=$(diskutil list | grep VMware | awk '{print $(NF)}' | sed 's/..$//')
+diskutil unmountDisk /dev/$horizon_disk
+rm ~/Downloads/horizon.dmg
+
+open -a "/Applications/VMware Horizon Client.app"
