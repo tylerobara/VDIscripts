@@ -10,15 +10,12 @@ If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 #>
 
 #"$env:USERPROFILE/Documents/GitHub/VDIscripts/winOS_VDI.ps1"
- Write-Host "`n-----This script will down and install the certificates and software necessary to connect to the AFNET VDI desktops-----`n"
- $begin=Read-Host "`n-----Do you wish to continue? `yes` or `no`-----`n"
+Write-Host "`n-----This script will down and install the certificates and software necessary to connect to the AFNET VDI desktops-----`n"
+$begin=Read-Host "`n-----Do you wish to continue? `yes` or `no`-----`n"
  
  If ($begin -ne "yes" -OR "y") {
-    New-Item -Path $userdocs -Name "vdi_temp" -ItemType "directory"
+    EXIT    
 } Else {
-    Write-Host "`n-----Temp directory already exists-----`n"
-}
-
 
 Get-ChildItem $userdocs -Filter "vdi*"
 
@@ -27,9 +24,11 @@ $userdocs="$env:USERPROFILE/Documents/"
 $vdi_test=Test-Path $vdi_temp
 
 If ($vdi_test -ne "True") {
-    exit
+    New-Item -Path $userdocs -Name "vdi_temp" -ItemType "directory"
 } Else {
-   
+    Write-Host "`n-----Temp directory already exists-----`n"
+}
+
 #Get-ChildItem $vdi_temp
 
 <#
@@ -70,4 +69,5 @@ Start-Process -FilePath $vdi_temp/horizon.exe -Verb RunAs
 
 Write-Host "`n-----Cleaning up files and folders-----`n"
 #Remove-Item -path $vdi_temp -recurse
+
 }
