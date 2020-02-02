@@ -11,13 +11,13 @@ If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
 #"$env:USERPROFILE/Documents/GitHub/VDIscripts/winOS_VDI.ps1"
 Write-Host "`n-----This script will down and install the certificates and software necessary to connect to the AFNET VDI desktops-----`n"
-$begin=Read-Host "`n-----Do you wish to continue? `yes` or `no`-----`n"
- 
- If ($begin -ne "yes" -OR "y") {
-    EXIT    
-} Else {
+$begin=Read-Host "`n-----Do you wish to continue? yes or no-----`n"
 
-Get-ChildItem $userdocs -Filter "vdi*"
+Write-Host $begin
+
+ If ($begin -eq "yes" -OR "y") {
+   
+#Get-ChildItem $userdocs -Filter "vdi*"
 
 $vdi_temp="$env:USERPROFILE/Documents/vdi_temp"
 $userdocs="$env:USERPROFILE/Documents/"
@@ -29,9 +29,6 @@ If ($vdi_test -ne "True") {
     Write-Host "`n-----Temp directory already exists-----`n"
 }
 
-#Get-ChildItem $vdi_temp
-
-<#
 Invoke-WebRequest -Uri "https://github.com/nsacyber/Windows-Secure-Host-Baseline/archive/master.zip" -OutFile $vdi_temp/master.zip
 
 Expand-Archive -LiteralPath "$vdi_temp/master.zip" -DestinationPath $vdi_temp
@@ -51,9 +48,7 @@ $certificateFiles = @(Get-ChildItem -Path $IntercertificatesPath -Recurse -Inclu
 $certificateFiles | ForEach {
     Import-Certificate -FilePath $_.FullName -CertStoreLocation cert:\LocalMachine\CA # Intermediate Certification Authories
 }
-#>
 
-<#
 $horizon_test=Test-Path $vdi_temp/horizon.exe
 
 If ($horizon_test -ne "True") {
@@ -62,12 +57,20 @@ Invoke-WebRequest -Uri "https://download3.vmware.com/software/view/viewclients/C
     Write-Host "`n-----VMware Horizon Client installer already exists-----`n"
 }
 
-Get-ChildItem $vdi_temp
+#Get-ChildItem $vdi_temp
 
-Start-Process -FilePath $vdi_temp/horizon.exe -Verb RunAs
-#>
+#Start-Process -FilePath $vdi_temp/horizon.exe -ArgumentList "/silent /norestart" -Verb RunAs
 
 Write-Host "`n-----Cleaning up files and folders-----`n"
 #Remove-Item -path $vdi_temp -recurse
 
+$vmview='C:\Program Files (x86)\VMware\VMware Horizon View Client\vmware-view.exe'
+$vm_test=Test-Path $vmview
+If ($vm_test -eq "True") {
+ Start-Process -FilePath $vmview -ArgumentList "-serverURL https://afrcdesktops.us.af.mil"
+} Else {
+Write-Host "Process failed, please start over"
 }
+} Else {
+ Write-Host "Are you sure?"
+ }
