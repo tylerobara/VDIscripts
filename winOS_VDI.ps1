@@ -10,6 +10,15 @@ If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 #>
 
 #"$env:USERPROFILE/Documents/GitHub/VDIscripts/winOS_VDI.ps1"
+ Write-Host "`n-----This script will down and install the certificates and software necessary to connect to the AFNET VDI desktops-----`n"
+ $begin=Read-Host "`n-----Do you wish to continue? `yes` or `no`-----`n"
+ 
+ If ($begin -ne "yes" -OR "y") {
+    New-Item -Path $userdocs -Name "vdi_temp" -ItemType "directory"
+} Else {
+    Write-Host "`n-----Temp directory already exists-----`n"
+}
+
 
 Get-ChildItem $userdocs -Filter "vdi*"
 
@@ -18,12 +27,10 @@ $userdocs="$env:USERPROFILE/Documents/"
 $vdi_test=Test-Path $vdi_temp
 
 If ($vdi_test -ne "True") {
-    New-Item -Path $userdocs -Name "vdi_temp" -ItemType "directory"
+    exit
 } Else {
-    Write-Host "-----Temp directory already exists-----"
-}
-
-Get-ChildItem $vdi_temp
+   
+#Get-ChildItem $vdi_temp
 
 <#
 Invoke-WebRequest -Uri "https://github.com/nsacyber/Windows-Secure-Host-Baseline/archive/master.zip" -OutFile $vdi_temp/master.zip
@@ -47,9 +54,20 @@ $certificateFiles | ForEach {
 }
 #>
 
+<#
+$horizon_test=Test-Path $vdi_temp/horizon.exe
+
+If ($horizon_test -ne "True") {
 Invoke-WebRequest -Uri "https://download3.vmware.com/software/view/viewclients/CART20FQ4/VMware-Horizon-Client-5.3.0-15208953.exe" -OutFile $vdi_temp/horizon.exe
+} Else {
+    Write-Host "`n-----VMware Horizon Client installer already exists-----`n"
+}
+
 Get-ChildItem $vdi_temp
 
+Start-Process -FilePath $vdi_temp/horizon.exe -Verb RunAs
+#>
 
-Write-Host "-----Cleaning up files and folders-----"
+Write-Host "`n-----Cleaning up files and folders-----`n"
 #Remove-Item -path $vdi_temp -recurse
+}
