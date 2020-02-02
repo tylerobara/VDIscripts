@@ -9,7 +9,8 @@
 [Linux](https://github.com/tylerobara/VDIscripts/blob/master/README.md#linux-instructions)
 
 ### Windows Instructions
-    *COMING SOON*
+    **Work in-progress**
+    `PowerShell (New-Object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/tylerobara/VDIscripts/master/winOS_VDI.ps1') | powershell`
 
 ### macOS Instructions
 1) Connect USB CAC Reader & Insert CAC
