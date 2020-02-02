@@ -1,15 +1,3 @@
-<#
-If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))
-{
-  # Relaunch as an elevated process:
-  Start-Process powershell.exe "-File",('"{0}"' -f $MyInvocation.MyCommand.Path) -Verb RunAs
-  exit
-}
-# Now running elevated so launch the script:
-& Write-Host "test"
-#>
-
-#"$env:USERPROFILE/Documents/GitHub/VDIscripts/winOS_VDI.ps1"
 Write-Host "`n-----This script will down and install the certificates and software necessary to connect to the AFNET VDI desktops-----`n"
 $begin=Read-Host "`n-----Do you wish to continue? yes or no-----`n"
 
