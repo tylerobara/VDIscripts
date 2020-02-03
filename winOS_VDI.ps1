@@ -21,6 +21,7 @@ $horizon_test=Test-Path $vmview
 
 If ($horizon_test -ne "True") {
 Invoke-WebRequest -Uri "https://download3.vmware.com/software/view/viewclients/CART20FQ4/VMware-Horizon-Client-5.3.0-15208953.exe" -OutFile $vdi_temp/horizon.exe
+Start-Process -FilePath $vdi_temp/horizon.exe -ArgumentList "/silent /norestart" -Verb RunAs
 } Else {
     Write-Host "`n-----VMware Horizon Client installer already exists-----`n"
 }
