@@ -29,6 +29,6 @@ Start-Process -FilePath $vdi_temp/horizon.exe -ArgumentList "/silent /norestart"
 Write-Host "`n-----Cleaning up files and folders-----`n"
 #Remove-Item -path $vdi_temp -recurse
 
-Start-Process -FilePath $vmview -ArgumentList "--serverURL https://afrcdesktops.us.af.mil"
+Start-Process -FilePath $vmview -ArgumentList "-serverURL https://afrcdesktops.us.af.mil"
 
 exit
