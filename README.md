@@ -18,6 +18,8 @@
 
 4) Paste into PowerShell window
 
+5) Wait
+
 ### macOS Instructions
 1) Connect USB CAC Reader & Insert CAC
 
@@ -43,5 +45,5 @@
     *COMING SOON*
 
 ### References
-- http://militarycac.com/macnotes.htm
+- http://militarycac.com
 
