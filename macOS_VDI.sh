@@ -8,20 +8,20 @@ CERTSDIR=${HOME}/certsdir
 rm -rf $CERTSDIR
 mkdir -pv $CERTSDIR
 cd $CERTSDIR
-wget -q https://militarycac.com/maccerts/AllCerts.p7b
+curl -s https://militarycac.com/maccerts/AllCerts.p7b -o AllCerts.p7b
 openssl pkcs7 -inform DER -outform PEM -in AllCerts.p7b -print_certs > AllCerts.cer
 sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain AllCerts.cer
 RootCerts=( RootCert2 RootCert3 RootCert4 RootCert5 )
 for cert in "${RootCerts[@]}"
     do
         :
-        wget -q https://militarycac.com/maccerts/$cert".cer"
+        curl -s https://militarycac.com/maccerts/$cert".cer" -o $cert".cer"
         sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain $cert".cer"
 done
 rm -rf $CERTSDIR
 
 #Downloading VMware Horizon, copying to $AppsDir, cleaning up and launching Horizon Client
-wget -O ~/Downloads/horizon.dmg $HORIZONURL
+curl -s $HORIZONURL -o ~/Downloads/horizon.dmg
 hdiutil attach ~/Downloads/horizon.dmg
 sudo cp -R "/Volumes/VMware Horizon Client/VMware Horizon Client.app" /Applications
 diskutil list | grep VMware | awk '{print $(NF)}' | sed 's/..$//'
