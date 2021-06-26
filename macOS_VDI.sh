@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Set variables for VMware Horizon download url & temp directory for certs
-HORIZONURL="https://download3.vmware.com/software/view/viewclients/CART21FQ4/VMware-Horizon-Client-2012-8.1.0-17353466.dmg"
+HORIZONURL="https://download3.vmware.com/software/view/viewclients/CART21FQ3/VMware-Horizon-Client-5.5.2-18035016.dmg"
 CERTSDIR=${HOME}/certsdir
 
 #Deleting any cert remnants, downloading and installing certs, deleting un-needed certs directory
