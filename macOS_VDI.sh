@@ -12,8 +12,7 @@ curl -s https://militarycac.com/maccerts/AllCerts.p7b -o AllCerts.p7b
 openssl pkcs7 -inform DER -outform PEM -in AllCerts.p7b -print_certs > AllCerts.cer
 sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain AllCerts.cer
 RootCerts=( RootCert2 RootCert3 RootCert4 RootCert5 )
-for cert in "${RootCerts[@]}"
-    do:
+for cert in "${RootCerts[@]}"; do
         curl -s https://militarycac.com/maccerts/$cert".cer" -o $cert".cer"
         sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain $cert".cer"
 done
