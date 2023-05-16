@@ -20,7 +20,7 @@ $vmview='C:\Program Files (x86)\VMware\VMware Horizon View Client\vmware-view.ex
 $horizon_test=Test-Path $vmview
 
 If ($horizon_test -ne "True") {
-Invoke-WebRequest -ContentType "application/octet-stream" -Uri "https://download3.vmware.com/software/view/viewclients/CART20FQ4/VMware-Horizon-Client-5.3.0-15208953.exe" -OutFile $vdi_temp/horizon.exe
+Invoke-WebRequest -ContentType "application/octet-stream" -Uri "https://download3.vmware.com/software/CART24FQ1_WIN_2303/VMware-Horizon-Client-2303-8.9.0-21444108.exe" -OutFile $vdi_temp/horizon.exe
 Start-Process -FilePath $vdi_temp/horizon.exe -ArgumentList "/silent /norestart" -Verb RunAs
 } Else {
     Write-Host "`n-----VMware Horizon Client installer already exists-----`n"
